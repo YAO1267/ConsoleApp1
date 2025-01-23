@@ -1,2 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿//==========================================================
+// Student Number : S10268880K
+// Student Name : Yao Yao
+// Partner Name : Atifah 
+//==========================================================
+
