@@ -18,7 +18,9 @@ namespace S10268880K_PRG2Assignment
         {
             flightNumber = fNo;
             origin = o;
-
+            destination = d;
+            expectedTime = e;
+            status = s;
         }
     }
 }
