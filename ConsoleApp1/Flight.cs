@@ -37,20 +37,16 @@ namespace S10268880K_PRG2Assignment
         public virtual double CalculateFees()
         {
             double fees = 300;
-            if( Destination == "SIN" || Destination == "Singapore")
+            if (Destination == "Singapore (SIN)" )
             {
                 fees += 500;
                 return fees;
             }
-            else if ( Origin == "SIN" || Origin == "Singapore")
+            else 
             {
                 fees += 800;
                 return fees;
             }
-
-            Console.WriteLine("Wrong info");
-            return 0.00;
-
         }
 
         public override string ToString()

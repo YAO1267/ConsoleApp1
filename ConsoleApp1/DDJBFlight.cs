@@ -24,7 +24,7 @@ namespace S10268880K_PRG2Assignment
 
         public double CalculateDees()
         {
-            double fees = base.CalculateFees() + 300;
+            double fees = base.CalculateFees() + RequestFee;
             return fees;
         }
 

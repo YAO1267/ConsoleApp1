@@ -19,7 +19,7 @@ namespace S10268880K_PRG2Assignment
 
         public override double CalculateFees()
         {
-            double fees = base.CalculateFees() + 150;
+            double fees = base.CalculateFees() + RequestFee;
             return fees;
         }
 

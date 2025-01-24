@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace S10268880K_PRG2Assignment
 {
@@ -17,7 +18,7 @@ namespace S10268880K_PRG2Assignment
             
         }
 
-        public Airline(string n, string c, Dictionary<string,Flight> d)
+        public Airline(string n, string c,Dictionary<string,Flight> d)
         {
             Name = n;
             Code = c;
@@ -26,27 +27,91 @@ namespace S10268880K_PRG2Assignment
 
         public bool AddFlight(Flight flight)
         {
-            Console.Write("Enter Flight Number:");
-            string newFlightNo = Console.ReadLine();
-           if (flight.FlightNumber != newFlightNo)
+           foreach(KeyValuePair<string,Flight> kvp in Flights)
+           {
+                if(kvp.Key == flight.FlightNumber)
+                {
+                    Console.WriteLine("Invalid Flight Number. No more than 1 Flight with the same Flight Number on the same day.");
+                    return false;
+                }
+           }
+
+            try
             {
-                return true;
+                string flightNo = flight.FlightNumber;
+                string origin = flight.Origin;
+                string destination = flight.Destination;
+                string expectedTime = Convert.ToString(flight.ExpectedTime);
+                string data = flightNo + "," + origin + "," + destination + "," + expectedTime;
+             
+
+                using (StreamWriter sw = new StreamWriter("flights.csv", true))
+                {
+                    sw.WriteLine(data);
+                }
             }
-            return false;
+            catch(Exception e) 
+            {
+                Console.WriteLine($"Error: {e.Message}");
+                return false;
+            }
+
+            Flights.Add(flight.FlightNumber, flight);
+            return true;
         }
 
-        //public double CalculateFees()
-        //{
-        //    return 0.00;
-        //}
+        public double CalculateFees()
+        {
+            double initialFees = 0 ;
+            double specialOrigin = 0;  // to be deducted 
+            double specialTime = 0;    // to be deducted
+            double specialRe = 0;      // to be deducted
+            double everyThree = 0;     // to ne deducted
+            int numFlights = Flights.Count;
+            foreach (KeyValuePair<string, Flight> kvp in Flights)
+            {
+                initialFees += kvp.Value.CalculateFees();
+                
+                if( kvp.Value.Origin == "Dubai (DXB)" || kvp.Value.Origin == "Bangkok (BKK)" || kvp.Value.Origin == "Tokyo (NRT)")
+                {
+                    specialOrigin += 25;
+                }
+
+                if( kvp.Value.ExpectedTime.TimeOfDay < new TimeSpan(11, 0, 0) || kvp.Value.ExpectedTime.TimeOfDay > new TimeSpan(21, 0, 0))
+                {
+                    specialTime += 110;
+                }
+
+                if( kvp.Value is NORMFlight)
+                {
+                    specialRe += 50;
+                }
+            }
+
+            if (numFlights > 5)
+            {
+                initialFees *= 0.97;
+            }
+
+            if(numFlights >= 3)
+            {
+                everyThree += 350 * (Math.Floor( numFlights / 3.00));
+            }
+
+            double finalFees = initialFees - specialOrigin - specialRe - everyThree - specialTime;
+
+
+
+        }
 
         public bool RemoveFlight(Flight flight)
         {
-            Console.Write("Enter Flight Number:");
-            string delFlightNo = Console.ReadLine();
-            if (flight.FlightNumber == delFlightNo)
+            foreach (KeyValuePair<string, Flight> kvp in Flights)
             {
-                return true;
+                if (kvp.Key == flight.FlightNumber)
+                {
+                    return true;
+                }
             }
             return false;
         }

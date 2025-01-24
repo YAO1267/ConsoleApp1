@@ -18,14 +18,14 @@ namespace S10268880K_PRG2Assignment
         public LWTTFlight() : base() { }
 
 
-        public LWTTFlight(string fNo, string o, string d, DateTime e, string s, double reFee) :base(fNo, o, d, e, s)
+        public LWTTFlight(string fNo, string o, string d, DateTime e, string s, double reFee) : base(fNo, o, d, e, s)
         {
             RequestFee = reFee;
         }
 
         public double CalculateFees()
         {
-            double fees = base.CalculateFees() + 500;
+            double fees = base.CalculateFees() + RequestFee;
             return fees;
         }
 

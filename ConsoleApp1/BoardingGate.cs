@@ -16,7 +16,7 @@ namespace S10268880K_PRG2Assignment
 
         public BoardingGate()
         {
-            
+                  
         }
 
         public BoardingGate(string gName, bool sCFFT, bool sDDJB, bool sLWTT, Flight f)
@@ -30,12 +30,11 @@ namespace S10268880K_PRG2Assignment
 
         //public double CalculateFees()
         //{
-
+    
         //}
         public override string ToString()
         {
             return "Gate Name:" + GateName + "\tSupports CFFT" + SupportsCFFT + "\tSupports DDJB:" + SupportsDDJB + "\tSupports LWTT" + SupportsLWTT + "\tFlight" + Flight;
         }
-
     }
 }
