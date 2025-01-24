@@ -21,6 +21,11 @@ namespace S10268880K_PRG2Assignment
         public NORMFlight(string fNo, string o, string d, DateTime e, string s) : base(fNo, o, d, e, s)
         { }
 
+        public override double CalculateFees()
+        {
+            return base.CalculateFees();
+        }
+
         public override string ToString()
         {
             return base.ToString();

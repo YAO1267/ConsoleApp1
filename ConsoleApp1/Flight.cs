@@ -15,29 +15,47 @@ namespace S10268880K_PRG2Assignment
 {
     abstract class Flight
     {
-		public string flightNumber { get; set; }
-        public string origin { get; set; }
-        public string destination { get; set; }
-        public DateTime expectedTime { get; set; }
-        public string status { get; set; }
+		public string FlightNumber { get; set; }
+        public string Origin { get; set; }
+        public string Destination { get; set; }
+        public DateTime ExpectedTime { get; set; }
+        public string Status { get; set; }
 
-        public Flight(string fNo, string o, string d, DateTime e, string s)
-        {
-            flightNumber = fNo;
-            origin = o;
-            destination = d;
-            expectedTime = e;
-            status = s;
-        }
-
-        public double CalculateFees()
+        protected Flight()
         {
             
+        }
+        public Flight(string fNo, string o, string d, DateTime e, string s)
+        {
+            FlightNumber = fNo;
+            Origin = o;
+            Destination = d;
+            ExpectedTime = e;
+            Status = s;
+        }
+
+        public virtual double CalculateFees()
+        {
+            double fees = 300;
+            if( Destination == "SIN" || Destination == "Singapore")
+            {
+                fees += 500;
+                return fees;
+            }
+            else if ( Origin == "SIN" || Origin == "Singapore")
+            {
+                fees += 800;
+                return fees;
+            }
+
+            Console.WriteLine("Wrong info");
+            return 0.00;
+
         }
 
         public override string ToString()
         {
-            return "flightnumber:" + flightNumber + "\torigin:" + origin + "\tdestination" + destination + "\texpectedtime:" + expectedTime + "\tstatus:" + status;
+            return "flightnumber:" + FlightNumber + "\torigin:" + Origin + "\tdestination" + Destination + "\texpectedtime:" + ExpectedTime + "\tstatus:" + Status;
         }
     }
 }

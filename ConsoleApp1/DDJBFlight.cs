@@ -12,20 +12,19 @@ using System.Threading.Tasks;
 
 namespace S10268880K_PRG2Assignment
 {
-    class LWTTFlight : Flight
+    class DDJBFlight : Flight
     {
         public double RequestFee { get; set; }
-        public LWTTFlight() : base() { }
+        public DDJBFlight() : base() { }
 
-
-        public LWTTFlight(string fNo, string o, string d, DateTime e, string s, double reFee) :base(fNo, o, d, e, s)
+        public DDJBFlight(string fNo, string o, string d, DateTime e, string s, double reFee) : base(fNo, o, d, e, s)
         {
             RequestFee = reFee;
         }
 
-        public double CalculateFees()
+        public double CalculateDees()
         {
-            double fees = base.CalculateFees() + 500;
+            double fees = base.CalculateFees() + 300;
             return fees;
         }
 
