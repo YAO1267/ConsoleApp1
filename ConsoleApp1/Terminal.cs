@@ -29,17 +29,60 @@ namespace S10268880K_PRG2Assignment
 
         public bool AddAirline(Airline airline)
         {
-            Console.Write("Enter Flight Number:");
-            string newAirline = Console.ReadLine();
-            if (airline.Name != newAirline)
+            foreach (KeyValuePair<string, Airline> kvp in Airlines)
+            {
+                if (kvp.Key == airline.Code || kvp.Value.Name == airline.Name) 
+                {
+                    Console.WriteLine("Invalid Airline Name/Code. This Airline already exists. Please try again.");
+                    return false;
+                }
+            }
+            
+            string name = airline.Name;
+            string code = airline.Code;
+
+            Airlines.Add(name, airline);
+            return true;
+        }
+
+        public bool AddBoardingGate(BoardingGate boardingGate)
+        {
+            if(boardingGate.Flight == null)
             {
                 return true;
             }
             return false;
-        }       
-        //public bool AddBoardingGate(BoardingGate boardingGate)
-        //{
-        //    if()
-        //}
+        }
+
+        public Airline? GetAirlineFromFlight(Flight flight)
+        {
+            string codeNum = flight.FlightNumber;
+            string[] split = codeNum.Split(' ');
+            Airline airline;
+            
+            foreach (KeyValuePair<string, Airline> kvp in Airlines)
+            {
+                if (split[0] == kvp.Key)
+                {
+                    airline = kvp.Value;
+                    return airline;
+                }
+            }
+
+            return null;
+        }
+
+        public void PrintAirlineFees()
+        {
+            foreach (KeyValuePair<string, Airline> kvp in Airlines)
+            {
+                Console.WriteLine($"{kvp.Key} has to pay {kvp.Value.CalculateFees()}");
+            }              
+        }
+
+        public override string ToString()
+        {
+            return "Terminal name:" + TerminalName + "\tAirlines" + Airlines + "\tFlights" + Flights + "\tBoarding Gates:" + BoardingGates + "\tGate Fees" + GateFees;
+        }
     }   
 }

@@ -28,10 +28,23 @@ namespace S10268880K_PRG2Assignment
             Flight = f;
         }
 
-        //public double CalculateFees()
-        //{
-    
-        //}
+        public double CalculateFees()
+        {
+            if (SupportsCFFT)
+            {
+                return 150;
+            }
+            else if (SupportsDDJB)
+            {
+                return 300;
+            }
+            else if(SupportsLWTT)
+            {
+                return 500;
+            }
+            
+            return 300;
+        }
         public override string ToString()
         {
             return "Gate Name:" + GateName + "\tSupports CFFT" + SupportsCFFT + "\tSupports DDJB:" + SupportsDDJB + "\tSupports LWTT" + SupportsLWTT + "\tFlight" + Flight;
