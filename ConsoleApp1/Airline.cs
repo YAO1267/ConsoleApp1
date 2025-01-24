@@ -99,7 +99,7 @@ namespace S10268880K_PRG2Assignment
             }
 
             double finalFees = initialFees - specialOrigin - specialRe - everyThree - specialTime;
-
+            return finalFees;
 
 
         }
@@ -113,6 +113,7 @@ namespace S10268880K_PRG2Assignment
                     return true;
                 }
             }
+            Console.WriteLine("Cannot find the Flight Number. Please try again.");
             return false;
         }
 
