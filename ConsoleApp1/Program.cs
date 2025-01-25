@@ -5,9 +5,10 @@
 //==========================================================
 
 using S10268880K_PRG2Assignment;
+using System.Runtime.Intrinsics.X86;
 
 //terminal
-Terminal terminal5 = new Terminal("Terminal5",null,null,null,null);
+Terminal terminal5 = new Terminal("Terminal5", new Dictionary<string, Airline>(), new Dictionary<string, Flight>(), new Dictionary<string, BoardingGate>(), new Dictionary<string, double>());
 terminal5.GateFees.Add("Base", 300.00);
 terminal5.GateFees.Add("DDJB", 300.00);
 terminal5.GateFees.Add("CFFT", 150.00);
@@ -16,11 +17,12 @@ terminal5.GateFees.Add("LWTT", 500.00);
 //feature1
 using (StreamReader sr = new StreamReader("airlines.csv"))
 {
-    string? s = sr.ReadLine();
+    sr.ReadLine();
+    string? s;
     while ((s = sr.ReadLine()) != null)
     {
         string[] airlinesInfo = s.Split(',');
-        Airline airline = new Airline(airlinesInfo[0], airlinesInfo[1],null);
+        Airline airline = new Airline(airlinesInfo[0], airlinesInfo[1], new Dictionary<string, Flight>());
         terminal5.Airlines.Add(airlinesInfo[1], airline);
     }
 }
@@ -41,58 +43,55 @@ using (StreamReader sr = new StreamReader("boardinggates.csv"))
 //feature 2
 using (StreamReader sr = new StreamReader("flights.csv"))
 {
-    string? s = sr.ReadLine();
+    sr.ReadLine();
+    string? s;  
     while ((s = sr.ReadLine()) != null)
     {
         string[] flightsInfo = s.Split(',');
-        string[] firtEle = flightsInfo[0].Split(" ");
-        string code = firtEle[0];
-        if (flightsInfo.Length == 4)
+        string[] firstEle = flightsInfo[0].Split(" ");
+        string code = firstEle[0];
+        if (flightsInfo[4] == "")
         {
             DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
             NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2],dateTime,"null");
             terminal5.Flights.Add(flightsInfo[0], nORMFlight);
             terminal5.Airlines[code].Flights.Add(flightsInfo[0],nORMFlight);
         }
-        else if (flightsInfo[5] == "DDJB")
-        {
-            DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
-            DDJBFlight dDJBFlight = new DDJBFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null",300.00);
-            terminal5.Flights.Add(flightsInfo[0], dDJBFlight);
-            terminal5.Airlines[code].Flights.Add(flightsInfo[0], dDJBFlight);
-        }
-        else if (flightsInfo[5] == "LWTT")
-        {
-            DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
-            LWTTFlight lWTTFlight = new LWTTFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null", 500.00);
-            terminal5.Flights.Add(flightsInfo[0], lWTTFlight);
-            terminal5.Airlines[code].Flights.Add(flightsInfo[0], lWTTFlight);
-        }
-        else if (flightsInfo[5] == "CFFT")
-        {
-            DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
-            CFFTFlight cFFTFlight = new CFFTFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null", 150.00);
-            terminal5.Flights.Add(flightsInfo[0], cFFTFlight);
-            terminal5.Airlines[code].Flights.Add(flightsInfo[0], cFFTFlight);
-        }
         else
         {
-            Console.WriteLine("Invalid file.");
+            if (flightsInfo[4] == "DDJB")
+            {
+                DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
+                DDJBFlight dDJBFlight = new DDJBFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null", 300.00);
+                terminal5.Flights.Add(flightsInfo[0], dDJBFlight);
+                terminal5.Airlines[code].Flights.Add(flightsInfo[0], dDJBFlight);
+            }
+            else if (flightsInfo[4] == "LWTT")
+            {
+                DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
+                LWTTFlight lWTTFlight = new LWTTFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null", 500.00);
+                terminal5.Flights.Add(flightsInfo[0], lWTTFlight);
+                terminal5.Airlines[code].Flights.Add(flightsInfo[0], lWTTFlight);
+            }
+            else if (flightsInfo[4] == "CFFT")
+            {
+                DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
+                CFFTFlight cFFTFlight = new CFFTFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null", 150.00);
+                terminal5.Flights.Add(flightsInfo[0], cFFTFlight);
+                terminal5.Airlines[code].Flights.Add(flightsInfo[0], cFFTFlight);
+            }
+            else
+            {
+                Console.WriteLine("Invalid file.");
+            }
         }
     }
-
 }
-// feature 3
 
 
 
 // feature 4
-public void ListAllBoardingGates()
-{
-    Console.WriteLine("==========================================");
-    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
-    Console.WriteLine("==========================================");
-}
+
 
 // feature 5
 
