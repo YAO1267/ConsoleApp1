@@ -90,7 +90,8 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     }
 }
 
-foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+// feature 4
+void ListAllBoardingGates()
 {
     Console.WriteLine("=============================================");
     Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
@@ -98,8 +99,8 @@ foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
 
     Console.WriteLine("Gate Name\tDDJB\tCFFT\tLWTT");
     Console.WriteLine("==========================================");
-    
-   // Iterate through all Boarding Gates in Terminal 5
+
+    // Iterate through all Boarding Gates in Terminal 5
 
     foreach (var gate in terminal5.BoardingGates.Values)
     {
@@ -110,4 +111,25 @@ foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
         Console.WriteLine($"{gate.SupportsLWTT}");
     }
 }
-//whwjj
+
+// feature 7
+
+void DisplayDetailsOfAirlines(Dictionary<string, Airline> airline)
+{
+    Console.WriteLine("================================================");
+    Console.WriteLine("Flight Schedule for Changi Airport Terminal 5");
+    Console.WriteLine("================================================");
+
+    foreach (var flight in Airline.Flights.Values)
+    {
+        Console.WriteLine($"Flight Number: {flight.FlightNumber}, Origin: {flight.Origin}, Destination: {flight.Destination}");
+    }
+    // Prompt the user to select a Flight Number
+    Console.WriteLine("\nEnter the Flight Number: ");
+    string flightNumber = Console.ReadLine();
+}
+
+
+
+
+
