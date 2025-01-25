@@ -45,29 +45,35 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     while ((s = sr.ReadLine()) != null)
     {
         string[] flightsInfo = s.Split(',');
+        string[] firtEle = flightsInfo[0].Split(" ");
+        string code = firtEle[0];
         if (flightsInfo.Length == 4)
         {
             DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
             NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2],dateTime,"null");
             terminal5.Flights.Add(flightsInfo[0], nORMFlight);
+            terminal5.Airlines[code].Flights.Add(flightsInfo[0],nORMFlight);
         }
         else if (flightsInfo[5] == "DDJB")
         {
             DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
             DDJBFlight dDJBFlight = new DDJBFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null",300.00);
             terminal5.Flights.Add(flightsInfo[0], dDJBFlight);
+            terminal5.Airlines[code].Flights.Add(flightsInfo[0], dDJBFlight);
         }
         else if (flightsInfo[5] == "LWTT")
         {
             DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
             LWTTFlight lWTTFlight = new LWTTFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null", 500.00);
             terminal5.Flights.Add(flightsInfo[0], lWTTFlight);
+            terminal5.Airlines[code].Flights.Add(flightsInfo[0], lWTTFlight);
         }
         else if (flightsInfo[5] == "CFFT")
         {
             DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
             CFFTFlight cFFTFlight = new CFFTFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null", 150.00);
             terminal5.Flights.Add(flightsInfo[0], cFFTFlight);
+            terminal5.Airlines[code].Flights.Add(flightsInfo[0], cFFTFlight);
         }
         else
         {
