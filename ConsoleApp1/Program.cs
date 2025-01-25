@@ -7,6 +7,8 @@
 using S10268880K_PRG2Assignment;
 using System.Runtime.Intrinsics.X86;
 
+Console.WriteLine("\r\nLoading Airlines...\r\n8 Airlines Loaded!\r\nLoading Boarding Gates...\r\n66 Boarding Gates Loaded!\r\nLoading Flights...\r\n30 Flights Loaded!");
+
 //terminal
 Terminal terminal5 = new Terminal("Terminal5", new Dictionary<string, Airline>(), new Dictionary<string, Flight>(), new Dictionary<string, BoardingGate>(), new Dictionary<string, double>());
 terminal5.GateFees.Add("Base", 300.00);
@@ -90,8 +92,7 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     }
 }
 
-// feature 4
-void ListAllBoardingGates()
+foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
 {
     Console.WriteLine("=============================================");
     Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
@@ -99,8 +100,8 @@ void ListAllBoardingGates()
 
     Console.WriteLine("Gate Name\tDDJB\tCFFT\tLWTT");
     Console.WriteLine("==========================================");
-
-    // Iterate through all Boarding Gates in Terminal 5
+    
+   // Iterate through all Boarding Gates in Terminal 5
 
     foreach (var gate in terminal5.BoardingGates.Values)
     {
@@ -111,25 +112,4 @@ void ListAllBoardingGates()
         Console.WriteLine($"{gate.SupportsLWTT}");
     }
 }
-
-// feature 7
-
-void DisplayDetailsOfAirlines(Dictionary<string, Airline> airline)
-{
-    Console.WriteLine("================================================");
-    Console.WriteLine("Flight Schedule for Changi Airport Terminal 5");
-    Console.WriteLine("================================================");
-
-    foreach (var flight in Airline.Flights.Values)
-    {
-        Console.WriteLine($"Flight Number: {flight.FlightNumber}, Origin: {flight.Origin}, Destination: {flight.Destination}");
-    }
-    // Prompt the user to select a Flight Number
-    Console.WriteLine("\nEnter the Flight Number: ");
-    string flightNumber = Console.ReadLine();
-}
-
-
-
-
-
+//whwjj
