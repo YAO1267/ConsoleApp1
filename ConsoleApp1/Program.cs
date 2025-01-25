@@ -87,7 +87,12 @@ using (StreamReader sr = new StreamReader("flights.csv"))
 
 
 // feature 4
-
+public void ListAllBoardingGates()
+{
+    Console.WriteLine("==========================================");
+    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
+    Console.WriteLine("==========================================");
+}
 
 // feature 5
 
