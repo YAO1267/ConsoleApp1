@@ -92,11 +92,4 @@ foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
 {
     Console.WriteLine(kvp.Key + "\t" + kvp.Value.Code);
 }
-//foreach (KeyValuePair<string, Flight> kvp in terminal5.Flights)
-//{
-//    Console.WriteLine(kvp.Key + "\t" + kvp.Value);
-//}
-
-
-//Console.WriteLine(terminal5.BoardingGates);
-
+//whwjj
