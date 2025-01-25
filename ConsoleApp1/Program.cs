@@ -102,6 +102,11 @@ void displayFlights()
     {
         Console.WriteLine(kvp.Value.ToString());
     }
+foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
 
 }
 
