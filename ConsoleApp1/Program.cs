@@ -91,6 +91,26 @@ using (StreamReader sr = new StreamReader("flights.csv"))
 
 
 // feature 4
+void ListAllBoardingGates()
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+
+    Console.WriteLine("Gate Name\tDDJB\tCFFT\tLWTT");
+    Console.WriteLine("==========================================");
+    
+   // Iterate through all Boarding Gates in Terminal 5
+
+    foreach (var gate in terminal5.BoardingGates.Values)
+    {
+        // Print the gate name and special request codes
+        Console.Write($"{gate.GateName}\t");
+        Console.Write($"{gate.SupportsDDJB}\t");
+        Console.Write($"{gate.SupportsCFFT}\t");
+        Console.WriteLine($"{gate.SupportsLWTT}");
+    }
+}
 
 
 // feature 5
