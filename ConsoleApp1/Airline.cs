@@ -1,4 +1,10 @@
-﻿using System;
+﻿//==========================================================
+// Student Number : S10268880K
+// Student Name : Yao Yao
+// Partner Name : Atifah 
+//==========================================================
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,7 +48,24 @@ namespace S10268880K_PRG2Assignment
                 string origin = flight.Origin;
                 string destination = flight.Destination;
                 string expectedTime = Convert.ToString(flight.ExpectedTime);
-                string data = flightNo + "," + origin + "," + destination + "," + expectedTime;
+                string? specialCode = null;
+                if(flight is NORMFlight)
+                {
+                    specialCode = null;
+                }
+                else if(flight is LWTTFlight)
+                {
+                    specialCode = "LWTT";
+                }
+                else if(flight is DDJBFlight)
+                {
+                    specialCode = "DDJB";
+                }
+                else if(flight is CFFTFlight)
+                {
+                    specialCode = "CFFT";
+                }
+                string data = flightNo + "," + origin + "," + destination + "," + expectedTime + "," + specialCode;
              
 
                 using (StreamWriter sw = new StreamWriter("flights.csv", true))
