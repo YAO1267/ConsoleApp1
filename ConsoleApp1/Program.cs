@@ -48,9 +48,11 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     while ((s = sr.ReadLine()) != null)
     {
         string[] flightsInfo = s.Split(',');
+        string specialRequestCode = flightsInfo[4].Trim();
         string[] firstEle = flightsInfo[0].Split(" ");
         string code = firstEle[0];
-        if (flightsInfo[4] == "")
+
+        if (string.IsNullOrEmpty(specialRequestCode))
         {
             DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
             NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2],dateTime,"null");
@@ -88,8 +90,14 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     }
 }
 
+
 foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
 {
     Console.WriteLine(kvp.Key + "\t" + kvp.Value.Code);
 }
-//whwjj
+
+
+
+
+
+
