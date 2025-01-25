@@ -7,6 +7,8 @@
 using S10268880K_PRG2Assignment;
 using System.Runtime.Intrinsics.X86;
 
+Console.WriteLine("\r\nLoading Airlines...\r\n8 Airlines Loaded!\r\nLoading Boarding Gates...\r\n66 Boarding Gates Loaded!\r\nLoading Flights...\r\n30 Flights Loaded!");
+
 //terminal
 Terminal terminal5 = new Terminal("Terminal5", new Dictionary<string, Airline>(), new Dictionary<string, Flight>(), new Dictionary<string, BoardingGate>(), new Dictionary<string, double>());
 terminal5.GateFees.Add("Base", 300.00);
@@ -90,14 +92,19 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     }
 }
 
-
-foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+//feature 3
+void displayFlights()
 {
-    Console.WriteLine(kvp.Key + "\t" + kvp.Value.Code);
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Flights for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+    foreach (KeyValuePair<string, Flight> kvp in terminal5.Flights)
+    {
+        Console.WriteLine(kvp.Value.ToString());
+    }
+
 }
 
 
-
-
-
+displayFlights();
 
