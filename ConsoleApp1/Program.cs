@@ -48,9 +48,11 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     while ((s = sr.ReadLine()) != null)
     {
         string[] flightsInfo = s.Split(',');
+        string specialRequestCode = flightsInfo[4].Trim();
         string[] firstEle = flightsInfo[0].Split(" ");
         string code = firstEle[0];
-        if (flightsInfo[4] == "")
+
+        if (string.IsNullOrEmpty(specialRequestCode))
         {
             DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
             NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2],dateTime,"null");
@@ -88,10 +90,7 @@ using (StreamReader sr = new StreamReader("flights.csv"))
     }
 }
 
-
-
-// feature 4
-void ListAllBoardingGates()
+foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
 {
     Console.WriteLine("=============================================");
     Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
@@ -111,19 +110,4 @@ void ListAllBoardingGates()
         Console.WriteLine($"{gate.SupportsLWTT}");
     }
 }
-
-
-// feature 5
-
-
-// feature 6
-
-
-
-// feature 7
-
-
-
-// feature 8
-
-
+//whwjj
