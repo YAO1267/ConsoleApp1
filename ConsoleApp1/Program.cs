@@ -111,12 +111,27 @@ void displayFlights()
 }
 
 // feature 4
-//foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
-//{
-//    Console.WriteLine("=============================================");
-//    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
-//    Console.WriteLine("=============================================");
-//}
+
+foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+
+    Console.WriteLine("Gate Name\tDDJB\tCFFT\tLWTT");
+    Console.WriteLine("==========================================");
+
+    // Iterate through all Boarding Gates in Terminal 5
+
+    foreach (var gate in terminal5.BoardingGates.Values)
+    {
+        // Print the gate name and special request codes
+        Console.Write($"{gate.GateName}\t");
+        Console.Write($"{gate.SupportsDDJB}\t");
+        Console.Write($"{gate.SupportsCFFT}\t");
+        Console.WriteLine($"{gate.SupportsLWTT}");
+    }
+}
 
 
 
@@ -228,6 +243,35 @@ void assignGate()
 
 //feature 7
 
+void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("Flight Schedule for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+
+    foreach (var airline in airlines.Values)
+    {
+        Console.WriteLine($"{airline.Code}: {airline.Name} ");
+    }
+
+    // Prompt the user to enter the 2-Letter Airline Code
+    Console.WriteLine("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
+    string airlineCode = Console.ReadLine()?.ToUpper();
+
+    // Retrieve the Airline object selected
+    if (airlines.TryGetValue(airlineCode, out Airline selectedAirline))
+    {
+        Console.WriteLine($"\nFlight Details for {selectedAirline.Name}:");
+    }
+    // Display flights from the airline
+    foreach (var flight in selectedAirline.Flights)
+    {
+        Console.WriteLine($"- Flight Number: {flight.Number}, Origin: {flight.Origin}, Destination: {flight.Destination}");
+    }
+    // Prompt user to select a flight
+    Console.Write("\nEnter the Flight Number to view details: ");
+    string flightNumber = Console.ReadLine();
+}
 
 
 
@@ -370,27 +414,27 @@ while (true)
     Console.WriteLine();
     Console.WriteLine("Please select your option:");
     string option = Console.ReadLine();
-    if(option == "1")
+    if (option == "1")
     {
 
     }
-    else if(option == "2")
+    else if (option == "2")
     {
 
     }
-    else if(option == "3")
+    else if (option == "3")
     {
 
     }
-    else if(option == "4")
+    else if (option == "4")
     {
 
     }
-    else if(option == "5")
+    else if (option == "5")
     {
 
     }
-    else if(option == "6")
+    else if (option == "6")
     {
 
     }
@@ -398,7 +442,7 @@ while (true)
     {
 
     }
-    else if( option == "0")
+    else if (option == "0")
     {
         break;
     }
@@ -406,4 +450,5 @@ while (true)
     {
         Console.WriteLine("Invalid Option Number. Please try again.");
     }
+
 }
