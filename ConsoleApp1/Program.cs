@@ -116,8 +116,11 @@ void displayFlights()
 //    Console.WriteLine("=============================================");
 //    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
 //    Console.WriteLine("=============================================");
-
 //}
+
+
+
+
 
 //feature 5
 void assignGate()
@@ -200,8 +203,157 @@ void assignGate()
     } 
 }
 
-assignGate();
+//feature 6
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//feature 7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//feature 8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//feature 9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//advanced feature 1
+
+
+
+
+
+
+
+
+
+
+
+//advanced feature 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//main 
 while (true)
 {
     Console.WriteLine("=============================================");
