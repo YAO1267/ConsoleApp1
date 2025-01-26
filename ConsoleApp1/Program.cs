@@ -2,6 +2,7 @@
 // Student Number : S10268880K
 // Student Name : Yao Yao
 // Partner Name : Atifah 
+// features: 23569
 //==========================================================
 
 using S10268880K_PRG2Assignment;
@@ -98,18 +99,159 @@ void displayFlights()
     Console.WriteLine("=============================================");
     Console.WriteLine("List of Flights for Changi Airport Terminal 5");
     Console.WriteLine("=============================================");
+    Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-20}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
     foreach (KeyValuePair<string, Flight> kvp in terminal5.Flights)
     {
-        Console.WriteLine(kvp.Value.ToString());
+        string flightN = kvp.Key;
+        string[] numAndCode = flightN.Split(' ');
+        string code = numAndCode[0];
+        string airlineN = terminal5.Airlines[code].Name;
+        Console.WriteLine($"{kvp.Key,-15} {airlineN,-20} {kvp.Value.Origin,-20} {kvp.Value.Destination,-20}{kvp.Value.ExpectedTime}");
     }
-foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
-{
-    Console.WriteLine("=============================================");
-    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
-    Console.WriteLine("=============================================");
-
 }
 
+// feature 4
+//foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+//{
+//    Console.WriteLine("=============================================");
+//    Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
+//    Console.WriteLine("=============================================");
 
-displayFlights();
+//}
 
+//feature 5
+void assignGate()
+{
+    while (true)
+    {
+        Console.WriteLine("=============================================");
+        Console.WriteLine("Assign a Boarding Gate to a Flight");
+        Console.WriteLine("=============================================");
+        Console.WriteLine("Enter Flight Number:");
+        string flightN = Console.ReadLine();
+        Console.WriteLine("Enter Boarding Gate Name:");
+        string gateN = Console.ReadLine();
+        BoardingGate boardingGate = terminal5.BoardingGates[gateN];
+        if (terminal5.AddBoardingGate(boardingGate))
+        {
+            string? specialCode = null;
+            if (terminal5.Flights[flightN] is NORMFlight)
+            {
+                specialCode = "None";
+            }
+            else if (terminal5.Flights[flightN] is LWTTFlight)
+            {
+                specialCode = "LWTT";
+            }
+            else if (terminal5.Flights[flightN] is DDJBFlight)
+            {
+                specialCode = "DDJB";
+            }
+            else if (terminal5.Flights[flightN] is CFFTFlight)
+            {
+                specialCode = "CFFT";
+            }
+            Console.WriteLine($"Flight Number: {flightN}");
+            Console.WriteLine($"Origin: {terminal5.Flights[flightN].Origin}");
+            Console.WriteLine($"Destination: {terminal5.Flights[flightN].Destination}");
+            Console.WriteLine($"Expected Time: {terminal5.Flights[flightN].ExpectedTime}");
+            Console.WriteLine($"Special Request Code: {specialCode}");
+            Console.WriteLine($"Boarding Gate Name: {gateN}");
+            Console.WriteLine($"Supports DDJB: {terminal5.BoardingGates[gateN].SupportsDDJB}");
+            Console.WriteLine($"Supports CFFT: {terminal5.BoardingGates[gateN].SupportsCFFT}");
+            Console.WriteLine($"Supports LWTT: {terminal5.BoardingGates[gateN].SupportsLWTT}");
+            Console.WriteLine("Would you like to update the status of the flight? (Y/N)");
+            string confirmation = Console.ReadLine();
+            if (confirmation == "Y")
+            {
+                Console.WriteLine("1. Delayed");
+                Console.WriteLine("2. Boarding");
+                Console.WriteLine("3. On Time");
+                Console.WriteLine("Please select the new status of the flight:");
+                string selection = Console.ReadLine();
+                if(selection == "1")
+                {
+                    terminal5.Flights[flightN].Status = "Delayed";
+                }
+                else if(selection == "2")
+                {
+                    terminal5.Flights[flightN].Status = "Boarding";
+                }
+                else if (selection == "2")
+                {
+                    terminal5.Flights[flightN].Status = "On Time";
+                }
+                terminal5.BoardingGates[gateN].Flight = terminal5.Flights[flightN];
+                Console.WriteLine(terminal5.BoardingGates[gateN].Flight);
+                Console.WriteLine($"Flight {flightN} has been assigned to Boarding Gate {gateN}!");
+                break;
+            }
+            else
+            {
+                terminal5.BoardingGates[gateN].Flight = terminal5.Flights[flightN];
+                terminal5.Flights[flightN].Status = "On Time";
+                Console.WriteLine($"Flight {flightN} has been assigned to Boarding Gate {gateN}!");
+            }
+        }
+        else
+        {
+            Console.WriteLine("Boarding Gate is already assigned.");
+        }
+    } 
+}
+
+assignGate();
+
+while (true)
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("Welcome to Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+    Console.WriteLine("1. List All Flights");
+    Console.WriteLine("2. List Boarding Gates");
+    Console.WriteLine("3. Assign a Boarding Gate to a Flight");
+    Console.WriteLine("4. Create Flight");
+    Console.WriteLine("5. Display Airline Flights");
+    Console.WriteLine("6. Modify Flight Details");
+    Console.WriteLine("7. Display Flight Schedule");
+    Console.WriteLine("0. Exit");
+    Console.WriteLine();
+    Console.WriteLine("Please select your option:");
+    string option = Console.ReadLine();
+    if(option == "1")
+    {
+
+    }
+    else if(option == "2")
+    {
+
+    }
+    else if(option == "3")
+    {
+
+    }
+    else if(option == "4")
+    {
+
+    }
+    else if(option == "5")
+    {
+
+    }
+    else if(option == "6")
+    {
+
+    }
+    else if (option == "7")
+    {
+
+    }
+    else if( option == "0")
+    {
+        break;
+    }
+    else
+    {
+        Console.WriteLine("Invalid Option Number. Please try again.");
+    }
+}
