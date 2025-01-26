@@ -124,9 +124,24 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
     foreach (var airline in airlines.Values)
     {
-        Console.WriteLine($" ");
+        Console.WriteLine($"{airline.Code}: {airline.Name} ");
     }
+
+    // Prompt the user to enter the 2-Letter Airline Code
+    Console.WriteLine("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
+    string airlineCode = Console.ReadLine()?.ToUpper();
+
+    // Retrieve the Airline object selected
+    if (airlines.TryGetValue(airlineCode, out Airline selectedAirline))
+    {
+        Console.WriteLine($"\nFlight Details for {selectedAirline.Name}:");
+    }
+    // Display flights from the airline
+    foreach (var flight in selectedAirline.Flights)
+    {
+        Console.WriteLine($"- Flight Number: {flight.Number}, Origin: {flight.Origin}, Destination: {flight.Destination}");
+    }
+    // Prompt user to select a flight
+    Console.Write("\nEnter the Flight Number to view details: ");
+    string flightNumber = Console.ReadLine();
 }
-// Prompt the user to enter the 2-Letter Airline Code
-Console.WriteLine("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
-string airlineCode = Console.ReadLine();
