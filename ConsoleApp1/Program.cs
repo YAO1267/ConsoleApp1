@@ -209,11 +209,12 @@ void assignGate()
                 terminal5.BoardingGates[gateN].Flight = terminal5.Flights[flightN];
                 terminal5.Flights[flightN].Status = "On Time";
                 Console.WriteLine($"Flight {flightN} has been assigned to Boarding Gate {gateN}!");
+                break;
             }
         }
         else
         {
-            Console.WriteLine("Boarding Gate is already assigned.");
+            Console.WriteLine("Boarding Gate is already assigned. Please try again!");
         }
     } 
 }
@@ -298,7 +299,7 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 //feature 8
-
+    
 
 
 
@@ -416,7 +417,7 @@ while (true)
     string option = Console.ReadLine();
     if (option == "1")
     {
-
+        displayFlights();
     }
     else if (option == "2")
     {
@@ -424,7 +425,7 @@ while (true)
     }
     else if (option == "3")
     {
-
+        assignGate();
     }
     else if (option == "4")
     {
@@ -444,11 +445,11 @@ while (true)
     }
     else if (option == "0")
     {
+        Console.WriteLine("Goodbye!");
         break;
     }
     else
     {
         Console.WriteLine("Invalid Option Number. Please try again.");
     }
-
 }
