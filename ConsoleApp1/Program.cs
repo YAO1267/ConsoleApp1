@@ -133,11 +133,6 @@ void ListAllBoardingGates()
 }
 
 
-
-
-
-
-
 //feature 5
 void assignGate()
 {
@@ -251,31 +246,40 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
     Console.WriteLine("Flight Schedule for Changi Airport Terminal 5");
     Console.WriteLine("=============================================");
 
+    // Display the list of airline codes and names
     foreach (var airline in airlines.Values)
     {
-        Console.WriteLine($"{airline.Code}: {airline.Name} ");
+        Console.WriteLine($"{airline.Code}: {airline.Name}");
     }
 
-    // Prompt the user to enter the 2-Letter Airline Code
-    Console.WriteLine("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
+    // Prompt the user for an airline code
+    Console.Write("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
     string airlineCode = Console.ReadLine()?.ToUpper();
 
-    // Retrieve the Airline object selected
-    if (airlines.TryGetValue(airlineCode, out Airline selectedAirline))
+    // Retrieve the airline
+    if (!airlines.TryGetValue(airlineCode, out Airline selectedAirline))
     {
-        Console.WriteLine($"\nFlight Details for {selectedAirline.Name}:");
+        Console.WriteLine("Invalid Airline Code. Please try again.");
+        return;
     }
-    // Display flights from the airline
-    foreach (var flight in selectedAirline.Flights)
-    //{
-    //    Console.WriteLine($"- Flight Number: {flight.Number}, Origin: {flight.Origin}, Destination: {flight.Destination}");
+
+    // Display the flights for the selected airline
+    Console.WriteLine($"\nFlight Details for {selectedAirline.Name}:");
+    Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-15} {5,-10}", 
+        "Flight Number", "Origin", "Destination", "Expected Time", "Special Code", "Gate");
+
+    foreach (var flight in selectedAirline.Flights.Values)
+    {
+        string gateName = flight.BoardingGate != null ? flight.BoardingGate.GateName : "Unassigned";
+        Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-15} {5,-10}", 
+            flight.Number, flight.Origin, flight.Destination, 
+            flight.ExpectedTime, flight.SpecialRequestCode, gateName);
     }
-    // Prompt user to select a flight
-    Console.Write("\nEnter the Flight Number to view details: ");
-    string flightNumber = Console.ReadLine();
+}
 
 
 
+    //feature 8
 
 
 
@@ -299,8 +303,6 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 
-//feature 8
-    
 
 
 
@@ -309,6 +311,7 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 
+    //feature 9
 
 
 
@@ -331,7 +334,6 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 
-//feature 9
 
 
 
@@ -341,6 +343,7 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 
+    //advanced feature 1
 
 
 
@@ -352,6 +355,7 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 
+    //advanced feature 2
 
 
 
@@ -363,7 +367,6 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 
-//advanced feature 1
 
 
 
@@ -375,32 +378,9 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
 
 
 
-//advanced feature 2
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//main 
-while (true)
+    //main 
+    while (true)
 {
     Console.WriteLine("=============================================");
     Console.WriteLine("Welcome to Changi Airport Terminal 5");
@@ -442,7 +422,7 @@ while (true)
     }
     else if (option == "7")
     {
-        
+        DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines);
     }
     else if (option == "0")
     {
