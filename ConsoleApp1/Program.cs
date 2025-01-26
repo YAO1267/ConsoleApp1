@@ -111,8 +111,7 @@ void displayFlights()
 }
 
 // feature 4
-
-foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+void ListAllBoardingGates()
 {
     Console.WriteLine("=============================================");
     Console.WriteLine("List of Boarding Gates for Changi Airport Terminal 5");
@@ -132,6 +131,8 @@ foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
         Console.WriteLine($"{gate.SupportsLWTT}");
     }
 }
+
+
 
 
 
@@ -266,13 +267,13 @@ void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
     }
     // Display flights from the airline
     foreach (var flight in selectedAirline.Flights)
-    {
-        Console.WriteLine($"- Flight Number: {flight.Number}, Origin: {flight.Origin}, Destination: {flight.Destination}");
+    //{
+    //    Console.WriteLine($"- Flight Number: {flight.Number}, Origin: {flight.Origin}, Destination: {flight.Destination}");
     }
     // Prompt user to select a flight
     Console.Write("\nEnter the Flight Number to view details: ");
     string flightNumber = Console.ReadLine();
-}
+
 
 
 
@@ -441,7 +442,7 @@ while (true)
     }
     else if (option == "7")
     {
-
+        
     }
     else if (option == "0")
     {
