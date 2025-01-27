@@ -356,7 +356,14 @@ void addFlight()
 //    Console.WriteLine("Flight Schedule for Changi Airport Terminal 5");
 //    Console.WriteLine("=============================================");
 
+    foreach (var airline in airlines.Values)
+    {
+        Console.WriteLine($"{airline.Code}: {airline.Name} ");
+    }
 
+    // Prompt the user to enter the 2-Letter Airline Code
+    Console.WriteLine("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
+    string airlineCode = Console.ReadLine()?.ToUpper();
 
 //    foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
 //    {
