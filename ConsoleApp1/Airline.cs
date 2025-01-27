@@ -42,8 +42,8 @@ namespace S10268880K_PRG2Assignment
                 }
            }
 
-            try
-            {
+           try
+           {
                 string flightNo = flight.FlightNumber;
                 string origin = flight.Origin;
                 string destination = flight.Destination;
@@ -66,20 +66,29 @@ namespace S10268880K_PRG2Assignment
                     specialCode = "CFFT";
                 }
                 string data = flightNo + "," + origin + "," + destination + "," + expectedTime + "," + specialCode;
-             
 
-                using (StreamWriter sw = new StreamWriter("flights.csv", true))
+
+                try
                 {
-                    sw.WriteLine(data);
+                    using (StreamWriter sw = new StreamWriter("F:\\2024sem2\\PRG\\S10268880K_PRG2Assignment\\S10268880K_PRGAssignment\\ConsoleApp1\\flights.csv", true))
+                    {
+                        sw.WriteLine(data);
+                    }
                 }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+
             }
-            catch(Exception e) 
-            {
+            catch (Exception e) 
+           {
                 Console.WriteLine($"Error: {e.Message}");
                 return false;
-            }
+           }
 
             Flights.Add(flight.FlightNumber, flight);
+            
             return true;
         }
 
