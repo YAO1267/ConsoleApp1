@@ -244,7 +244,7 @@ void assignGate()
 
 //feature 7
 
-void DisplayAirlineFlightDetails(Dictionary<string, Airline> airlines)
+void DisplayAirlineFlightDetails()
 {
     Console.WriteLine("=============================================");
     Console.WriteLine("Flight Schedule for Changi Airport Terminal 5");
