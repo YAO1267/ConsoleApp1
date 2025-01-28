@@ -60,15 +60,16 @@ using (StreamReader sr = new StreamReader("flights.csv"))
         if (string.IsNullOrEmpty(specialRequestCode))
         {
             //DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
-            string dateTime1 = flightsInfo[3];
-            DateTime dateTime;
-            if(DateTime.TryParseExact(dateTime1,"MM/dd/yyyy hh:mm",CultureInfo.InvariantCulture,DateTimeStyles.None,out dateTime))
+            string dateTime1 = flightsInfo[3]; DateTime dateTime;
+            if (DateTime.TryParseExact(dateTime1, "MM/dd/yyyy hh:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
             {
-                dateTime1 = dateTime.ToString("ddd/MM/yyyy hh:mm");
+                dateTime1 = dateTime.ToString("dd/MM/yyyy hh:mm");
             }
-            NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2],dateTime,"null");
-            terminal5.Flights.Add(flightsInfo[0], nORMFlight);
-            terminal5.Airlines[code].Flights.Add(flightsInfo[0],nORMFlight);
+            else
+            {
+                DateTime dateTime2 = Convert.ToDateTime(dateTime1); NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime2, "null");
+                terminal5.Flights.Add(flightsInfo[0], nORMFlight); terminal5.Airlines[code].Flights.Add(flightsInfo[0], nORMFlight);
+            }
         }
         else
         {
@@ -247,7 +248,7 @@ void addFlight()
 
         Console.Write("Enter Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
         string date = Console.ReadLine();
-        DateTime expectedTime = Convert.ToDateTime(date);
+        DateTime expectedTime = DateTime.ParseExact(date,"dd/MM/yyyy HH:mm",CultureInfo.InvariantCulture);
 
         Console.Write("Enter Special Request Code (CFFT/DDJB/LWTT/None): ");
         string specialCode = Console.ReadLine();
@@ -335,20 +336,6 @@ void addFlight()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //feature 7
 
 void DisplayAirlineFlightDetails()
@@ -397,6 +384,72 @@ void DisplayAirlineFlightDetails()
     }
 }
 
+  //feature 8
+  void ModifyFlightDetails()
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Airlines for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+    Console.WriteLine("{0,-25} {1,-20}", "Airline Code", "Airline Name");
+    foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+    {
+        Console.WriteLine($"{kvp.Key,-20} {kvp.Value.Name,-20} ");
+    }
+    Console.WriteLine("\nEnter Airline Code : ");
+    string airlineCode = Console.ReadLine()?.ToUpper();
+
+
+
+
+    if (terminal5.Airlines.ContainsKey(airlineCode))
+    {
+        Airline selectedAirline = terminal5.Airlines[airlineCode];
+
+        Console.WriteLine("=============================================");
+        Console.WriteLine($"List of Flights for {selectedAirline.Name}");
+        Console.WriteLine("=============================================");
+        Console.WriteLine("{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
+
+        if (selectedAirline.Flights.Count > 0)
+        {
+            //foreach (Flight flight in selectedAirline.Flights)
+            foreach (KeyValuePair<string, Flight> kvp in selectedAirline.Flights)
+            {
+                Console.WriteLine("{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}",
+                                  kvp.Key,
+                                  selectedAirline.Name,
+                                  kvp.Value.Origin,
+                                  kvp.Value.Destination,
+                                  kvp.Value.ExpectedTime.ToString("dd/MM/yyyy hh:mm:ss tt"));
+                            }
+            Console.WriteLine("\nChoose an existing Flight to modify or delete: ");
+            Console.WriteLine("1. Modify Flight");
+            Console.WriteLine("2. Delete Flight");
+            Console.WriteLine("Choose an option: ");
+            string option = Console.ReadLine();
+
+            if (option == "1")
+            {
+                Console.WriteLine("Enter Flight Number to modify: ");
+                string flightNumberToModify = Console.ReadLine()?.ToUpper();
+
+                if (selectedAirline.Flights.ContainsKey(flightNumberToModify))
+                {
+                    Flight flightToModify = selectedAirline.Flights[flightNumberToModify];
+
+                    Console.WriteLine("Choose the specification to modify: ");
+                    Console.WriteLine("1. Modify Basic Information");
+                    Console.WriteLine("2. Modify Status");
+                    Console.WriteLine("3. Modify Special Request Code");
+                    Console.WriteLine("4. Modify Boarding Gate");
+                    string modificationOption = Console.ReadLine();
+
+                    if (modificationOption == "1")
+                    { }
+
+
+                }
+            }
 
 
 
@@ -411,7 +464,6 @@ void DisplayAirlineFlightDetails()
 
 
 
-    //feature 8
 
 
 
@@ -429,22 +481,8 @@ void DisplayAirlineFlightDetails()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //feature 9
-    void scheduledFlight()
+                    //feature 9
+                    void scheduledFlight()
 {
     Console.WriteLine("=============================================\r\nFlight Schedule for Changi Airport Terminal 5\r\n=============================================");
     Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-20} {5,-24} {6,-20}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time", "Status", "Boarding Gate");
@@ -592,7 +630,7 @@ void DisplayAirlineFlightDetails()
         }
         else if (option == "6")
         {
-
+        ModifyFlightDetails();
         }
         else if (option == "7")
         {
