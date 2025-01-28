@@ -134,10 +134,6 @@ void listBoardingGate()
 
 
 
-
-
-
-
 //feature 5
 void assignGate()
 {
@@ -422,7 +418,7 @@ void DisplayAirlineFlightDetails()
                                   kvp.Value.Destination,
                                   kvp.Value.ExpectedTime.ToString("dd/MM/yyyy hh:mm:ss tt"));
                             }
-            Console.WriteLine("\nChoose an existing Flight to modify or delete: ");
+            Console.WriteLine("Choose an existing Flight to modify or delete: ");
             Console.WriteLine("1. Modify Flight");
             Console.WriteLine("2. Delete Flight");
             Console.WriteLine("Choose an option: ");
@@ -437,52 +433,80 @@ void DisplayAirlineFlightDetails()
                 {
                     Flight flightToModify = selectedAirline.Flights[flightNumberToModify];
 
-                    Console.WriteLine("Choose the specification to modify: ");
                     Console.WriteLine("1. Modify Basic Information");
                     Console.WriteLine("2. Modify Status");
                     Console.WriteLine("3. Modify Special Request Code");
                     Console.WriteLine("4. Modify Boarding Gate");
-                    string modificationOption = Console.ReadLine();
+                    string Option1 = Console.ReadLine();
 
-                    if (modificationOption == "1")
-                    { }
-
-
+                    if (Option1 == "1")
+                    {
+                        Console.WriteLine("Enter new Origin: ");
+                        flightToModify.Origin = Console.ReadLine();
+                        Console.WriteLine("Enter new Destination: ");
+                        flightToModify.Destination = Console.ReadLine();
+                        Console.WriteLine("Enter new Expected Departure/Arrival Time (dd/MM/yyyy hh:mm): ");
+                        flightToModify.ExpectedTime = DateTime.Parse(Console.ReadLine());
+                    }
+                    else if (Option1 == "2")
+                    {
+                        Console.WriteLine("Enter new Status: ");
+                        flightToModify.Status = Console.ReadLine();
+                    }
+                    else if (Option1 == "3")
+                    {
+                        Console.WriteLine("Enter new Special Request Code (if any): ");
+                        flightToModify.SpecialCode = Console.ReadLine();///****
+                    }
+                    else if (Option1 == "4")
+                    {
+                        Console.WriteLine("Enter new Boarding Gate: ");
+                        flightToModify.BoardingGate = Console.ReadLine() ///***
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid option selected.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Flight Number. Please try again.");
                 }
             }
+            else if (option == "2")
+            {
+                Console.WriteLine("Enter Flight Number to delete: ");
+                string flightNumberToDelete = Console.ReadLine()?.ToUpper();
+                if (selectedAirline.Flights.ContainsKey(flightNumberToDelete))
+                {
+                    Console.WriteLine($"Are you sure you want to delete flight {flightNumberToDelete}? (Y/N)");
+                    string confirmDelete = Console.ReadLine()?.ToUpper();
 
+                    if (confirmDelete == "Y")
+                    {
+                        selectedAirline.Flights.Remove(flightNumberToDelete);
+                        Console.WriteLine("Flight deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Flight deletion cancelled.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Flight Number. Please try again.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid option. Please select a valid option.");
+            }
+            
 
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    //feature 9
-                    void scheduledFlight()
+     //feature 9
+    void scheduledFlight()
 {
     Console.WriteLine("=============================================\r\nFlight Schedule for Changi Airport Terminal 5\r\n=============================================");
     Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-20} {5,-24} {6,-20}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time", "Status", "Boarding Gate");
