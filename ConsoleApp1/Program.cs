@@ -138,10 +138,6 @@ void listBoardingGate()
 
 
 
-
-
-
-
 //feature 5
 void assignGate()
 {
@@ -252,7 +248,7 @@ void addFlight()
 
         Console.Write("Enter Expected Departure/Arrival Time (dd/mm/yyyy hh:mm): ");
         string date = Console.ReadLine();
-        DateTime expectedTime = DateTime.ParseExact(date,"dd/MM/yyyy HH:mm", CultureInfo.InvariantCulture);
+        DateTime expectedTime = DateTime.ParseExact(date,"dd/MM/yyyy HH:mm",CultureInfo.InvariantCulture);
 
         Console.Write("Enter Special Request Code (CFFT/DDJB/LWTT/None): ");
         string specialCode = Console.ReadLine();
@@ -340,126 +336,183 @@ void addFlight()
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //feature 7
 
-//void DisplayAirlineFlightDetails()
-//{
-//    Console.WriteLine("=============================================");
-//    Console.WriteLine("Flight Schedule for Changi Airport Terminal 5");
-//    Console.WriteLine("=============================================");
+void DisplayAirlineFlightDetails()
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Airlines for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+    Console.WriteLine("{0,-25} {1,-20}", "Airline Code", "Airline Name");
+    foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+    {
+        Console.WriteLine($"{kvp.Key,-20} {kvp.Value.Name,-20} ");
+    }
+    Console.WriteLine("\nEnter Airline Code : ");
+    string airlineCode = Console.ReadLine()?.ToUpper();
 
-    //foreach (var airline in airlines.Values)
-    //{
-    //    Console.WriteLine($"{airline.Code}: {airline.Name} ");
-    //}
+    if (terminal5.Airlines.ContainsKey(airlineCode))
+    {
+        Airline selectedAirline = terminal5.Airlines[airlineCode];
 
-    //// Prompt the user to enter the 2-Letter Airline Code
-    //Console.WriteLine("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
-    //string airlineCode = Console.ReadLine()?.ToUpper();
+        Console.WriteLine("=============================================");
+        Console.WriteLine($"List of Flights for {selectedAirline.Name}");
+        Console.WriteLine("=============================================");
+        Console.WriteLine("{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}", "Flight Number", "Airline Name","Origin","Destination", "Expected Departure/Arrival Time");
 
-//    foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
-//    {
+        if (selectedAirline.Flights.Count > 0)
+        {
+            //foreach (Flight flight in selectedAirline.Flights)
+            foreach (KeyValuePair<string, Flight> kvp in selectedAirline.Flights)
+            {
+                Console.WriteLine("{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}",
+                                  kvp.Key,
+                                  selectedAirline.Name,
+                                  kvp.Value.Origin,
+                                  kvp.Value.Destination,
+                                  kvp.Value.ExpectedTime.ToString("dd/MM/yyyy hh:mm:ss tt"));
+            }
+        }
+        else
+        {
+            Console.WriteLine("No flights available for this airline.");
+        }
+    }
+    else
+    {
+        Console.WriteLine("Invalid Airline Code. Please try again.");
+    }
+}
 
-//        Airline airline = kvp.Value;
-//        string flightN = airline.Flights.Keys;
-//        string flightN = airlineN.Flights;
-//        string[] numAndCode = flightN.Split(' ');
-//        // Prompt the user to enter the 2-Letter Airline Code
-//        Console.WriteLine("\nEnter the 2-Letter Airline Code (e.g., SQ, MH): ");
-//        string airlineCode = Console.ReadLine()?.ToUpper();
-
-//        // Retrieve the Airline object selected
-//        if (airlines.TryGetValue(airlineCode, out Airline selectedAirline))
-//        {
-//            Console.WriteLine($"\nFlight Details for {selectedAirline.Name}:");
-//        }
-//        // Display flights from the airline
-//        foreach (var flight in selectedAirline.Flights)
-//        {
-//            Console.WriteLine($"- Flight Number: {flight.Number}, Origin: {flight.Origin}, Destination: {flight.Destination}");
-//        }
-//        // Prompt user to select a flight
-//        Console.Write("\nEnter the Flight Number to view details: ");
-//        string flightNumber = Console.ReadLine();
-//    }
-//}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //feature 8
+  void ModifyFlightDetails()
+{
+    Console.WriteLine("=============================================");
+    Console.WriteLine("List of Airlines for Changi Airport Terminal 5");
+    Console.WriteLine("=============================================");
+    Console.WriteLine("{0,-25} {1,-20}", "Airline Code", "Airline Name");
+    foreach (KeyValuePair<string, Airline> kvp in terminal5.Airlines)
+    {
+        Console.WriteLine($"{kvp.Key,-20} {kvp.Value.Name,-20} ");
+    }
+    Console.WriteLine("\nEnter Airline Code : ");
+    string airlineCode = Console.ReadLine()?.ToUpper();
 
 
 
 
-//feature 8
+    if (terminal5.Airlines.ContainsKey(airlineCode))
+    {
+        Airline selectedAirline = terminal5.Airlines[airlineCode];
 
+        Console.WriteLine("=============================================");
+        Console.WriteLine($"List of Flights for {selectedAirline.Name}");
+        Console.WriteLine("=============================================");
+        Console.WriteLine("{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time");
 
+        if (selectedAirline.Flights.Count > 0)
+        {
+            //foreach (Flight flight in selectedAirline.Flights)
+            foreach (KeyValuePair<string, Flight> kvp in selectedAirline.Flights)
+            {
+                Console.WriteLine("{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}",
+                                  kvp.Key,
+                                  selectedAirline.Name,
+                                  kvp.Value.Origin,
+                                  kvp.Value.Destination,
+                                  kvp.Value.ExpectedTime.ToString("dd/MM/yyyy hh:mm:ss tt"));
+                            }
+            Console.WriteLine("Choose an existing Flight to modify or delete: ");
+            Console.WriteLine("1. Modify Flight");
+            Console.WriteLine("2. Delete Flight");
+            Console.WriteLine("Choose an option: ");
+            string option = Console.ReadLine();
 
+            if (option == "1")
+            {
+                Console.WriteLine("Enter Flight Number to modify: ");
+                string flightNumberToModify = Console.ReadLine()?.ToUpper();
 
+                if (selectedAirline.Flights.ContainsKey(flightNumberToModify))
+                {
+                    Flight flightToModify = selectedAirline.Flights[flightNumberToModify];
 
+                    Console.WriteLine("1. Modify Basic Information");
+                    Console.WriteLine("2. Modify Status");
+                    Console.WriteLine("3. Modify Special Request Code");
+                    Console.WriteLine("4. Modify Boarding Gate");
+                    string Option1 = Console.ReadLine();
 
+                    if (Option1 == "1")
+                    {
+                        Console.WriteLine("Enter new Origin: ");
+                        flightToModify.Origin = Console.ReadLine();
+                        Console.WriteLine("Enter new Destination: ");
+                        flightToModify.Destination = Console.ReadLine();
+                        Console.WriteLine("Enter new Expected Departure/Arrival Time (dd/MM/yyyy hh:mm): ");
+                        flightToModify.ExpectedTime = DateTime.Parse(Console.ReadLine());
+                    }
+                    else if (Option1 == "2")
+                    {
+                        Console.WriteLine("Enter new Status: ");
+                        flightToModify.Status = Console.ReadLine();
+                    }
+                    else if (Option1 == "3")
+                    {
+                        Console.WriteLine("Enter new Special Request Code (if any): ");
+                        flightToModify.SpecialCode = Console.ReadLine();///****
+                    }
+                    else if (Option1 == "4")
+                    {
+                        Console.WriteLine("Enter new Boarding Gate: ");
+                        flightToModify.BoardingGate = Console.ReadLine() ///***
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid option selected.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Flight Number. Please try again.");
+                }
+            }
+            else if (option == "2")
+            {
+                Console.WriteLine("Enter Flight Number to delete: ");
+                string flightNumberToDelete = Console.ReadLine()?.ToUpper();
+                if (selectedAirline.Flights.ContainsKey(flightNumberToDelete))
+                {
+                    Console.WriteLine($"Are you sure you want to delete flight {flightNumberToDelete}? (Y/N)");
+                    string confirmDelete = Console.ReadLine()?.ToUpper();
 
+                    if (confirmDelete == "Y")
+                    {
+                        selectedAirline.Flights.Remove(flightNumberToDelete);
+                        Console.WriteLine("Flight deleted successfully.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Flight deletion cancelled.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Flight Number. Please try again.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid option. Please select a valid option.");
+            }
+            
 
+        }
+    }
+}        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//feature 9
-void scheduledFlight()
+     //feature 9
+    void scheduledFlight()
 {
     Console.WriteLine("=============================================\r\nFlight Schedule for Changi Airport Terminal 5\r\n=============================================");
     Console.WriteLine("{0,-15} {1,-20} {2,-20} {3,-20} {4,-20} {5,-24} {6,-20}", "Flight Number", "Airline Name", "Origin", "Destination", "Expected Departure/Arrival Time", "Status", "Boarding Gate");
