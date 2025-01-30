@@ -504,6 +504,8 @@ void DisplayAirlineFlightDetails()
             
 
         }
+    }
+}        
 
      //feature 9
     void scheduledFlight()
