@@ -415,13 +415,13 @@ void DisplayAirlineFlightDetails()
             //foreach (Flight flight in selectedAirline.Flights)
             foreach (KeyValuePair<string, Flight> kvp in selectedAirline.Flights)
             {
-                Console.WriteLine("{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}",
+                Console.WriteLine($"{0,-15} {1,-25} {2,-20} {3,-20} {4,-35}",
                                   kvp.Key,
                                   selectedAirline.Name,
                                   kvp.Value.Origin,
                                   kvp.Value.Destination,
                                   kvp.Value.ExpectedTime.ToString("dd/MM/yyyy hh:mm:ss tt"));
-                            }
+            }
             Console.WriteLine("Choose an existing Flight to modify or delete: ");
             Console.WriteLine("1. Modify Flight");
             Console.WriteLine("2. Delete Flight");
@@ -511,7 +511,7 @@ void DisplayAirlineFlightDetails()
     }
 }        
 
-     //feature 9
+    //feature 9
     void scheduledFlight()
 {
     Console.WriteLine("=============================================\r\nFlight Schedule for Changi Airport Terminal 5\r\n=============================================");
