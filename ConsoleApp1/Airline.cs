@@ -2,6 +2,7 @@
 // Student Number : S10268880K
 // Student Name : Yao Yao
 // Partner Name : Atifah 
+// features: 23569 + advanced feature 1/a
 //==========================================================
 
 using System;
@@ -70,7 +71,9 @@ namespace S10268880K_PRG2Assignment
 
                 try
                 {
-                    using (StreamWriter sw = new StreamWriter("F:\\2024sem2\\PRG\\S10268880K_PRG2Assignment\\S10268880K_PRGAssignment\\ConsoleApp1\\flights.csv", true))
+                    string projectDir = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).Parent.Parent.Parent.FullName;
+                    string filePath = Path.Combine(projectDir, "flights.csv");
+                    using (StreamWriter sw = new StreamWriter(filePath, true))
                     {
                         sw.WriteLine(data);
                     }
@@ -80,13 +83,13 @@ namespace S10268880K_PRG2Assignment
                     Console.WriteLine("Error: " + ex.Message);
                 }
 
-            }
-            catch (Exception e) 
+           }
+           catch (Exception e) 
            {
                 Console.WriteLine($"Error: {e.Message}");
                 return false;
            }
-
+            
             Flights.Add(flight.FlightNumber, flight);
             
             return true;
