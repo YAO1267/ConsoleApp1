@@ -61,19 +61,10 @@ using (StreamReader sr = new StreamReader("flights.csv"))
 
         if (string.IsNullOrEmpty(specialRequestCode))
         {
-            string dateTime1 = flightsInfo[3];
-            DateTime dateTime;
-            if (DateTime.TryParseExact(dateTime1, "MM/dd/yyyy hh:mm", CultureInfo.InvariantCulture, DateTimeStyles.None, out dateTime))
-            {
-                dateTime1 = dateTime.ToString("dd/MM/yyyy hh:mm");
-            }
-            else
-            {
-                DateTime dateTime2 = Convert.ToDateTime(dateTime1);
-                NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime2, "null");
-                terminal5.Flights.Add(flightsInfo[0], nORMFlight);
-                terminal5.Airlines[code].Flights.Add(flightsInfo[0], nORMFlight);
-            }
+            DateTime dateTime = Convert.ToDateTime(flightsInfo[3]);
+            NORMFlight nORMFlight = new NORMFlight(flightsInfo[0], flightsInfo[1], flightsInfo[2], dateTime, "null");
+            terminal5.Flights.Add(flightsInfo[0], nORMFlight);
+            terminal5.Airlines[code].Flights.Add(flightsInfo[0], nORMFlight);
 
         }
         else
@@ -551,19 +542,7 @@ void ModifyFlightDetails()
                 break;
             }
         }
-        //    // Display updated flight details in desired format
-        //    Console.WriteLine("\nFlight updated!");
-        //    Console.WriteLine("=============================================");
-        //    Console.WriteLine("Flight Number: {0}", flightToModify.FlightNumber);
-        //    Console.WriteLine("Airline Name: {0}", selectedAirline.Name);
-        //    Console.WriteLine("Origin: {0}", flightToModify.Origin);
-        //    Console.WriteLine("Destination: {0}", flightToModify.Destination);
-        //    Console.WriteLine("Expected Departure/Arrival Time: {0}", flightToModify.ExpectedTime.ToString("dd/MM/yyyy h:mm:ss tt"));
-        //    Console.WriteLine("Status: {0}", flightToModify.Status);
-        //    Console.WriteLine("Special Request Code: {0}", flightToModify.SpecialRequestCode ?? "None");
-        //    Console.WriteLine("Boarding Gate: {0}", flightToModify.BoardingGate ?? "Unassigned");
-        //    Console.WriteLine("=============================================");
-        //}
+        
         else if (option == "2")
         {
             Console.Write("Choose an existing Flight to delete: ");
@@ -875,7 +854,7 @@ void DisplayTotalFee(Terminal terminal)
 
             if (flight.Origin == "DXB" || flight.Origin == "BKK" || flight.Origin == "NRT") { discountSubtotal += originDiscount; }
             if (flight.ExpectedTime.Hour < 11 || flight.ExpectedTime.Hour > 21) { discountSubtotal += earlyLateDiscount; }
-            if (string.IsNullOrEmpty(flight.SpecialRequestCode)) { discountSubtotal += noRequestDiscount; }
+            if (string.IsNullOrEmpty(flight.SpecialRequest)) { discountSubtotal += noRequestDiscount; }
         }
 
         if (flightCount >= 3) { discountSubtotal += (flightCount / 3) * perThreeFlightsDiscount; }
@@ -964,11 +943,11 @@ while (true)
     }
     else if (option == "5")
     {
-
+        DisplayAirlineFlightDetails();
     }
     else if (option == "6")
     {
-
+        ModifyFlightDetails();
     }
     else if (option == "7")
     {
